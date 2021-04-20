@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.App{
+  width: 260px;
+  height: 500px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+button{
+  font-family: 'Roboto',sans-serif;
+  border: none;
+  background-color: #ececec;
+  height: 65px;
+  width: 65px;
+  font-size: 25px;
+  cursor: pointer;
+  outline: none;
+  transition: 0.5s;
+}
+button:hover,:focus{
+  background-color: #e7cece;
+}
+
+.input-number{
+  background: transparent;
+  border: none;
+  width: 230px;
+  outline:none;
+  font-size: 40px;
+  text-align: right;
+}
+.button-operation{
+  background-color: #bfece8;
+}
