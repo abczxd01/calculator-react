@@ -1,3 +1,10 @@
 body {
   background: #2ab3a6;
 }
+body,a,p,h1,h2,h3{
+  margin: 0;
+  padding: 0;
+}
+#root{
+  height: 100vh;
+}
