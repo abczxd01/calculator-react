@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Toggle from "./Toggle/Toggle";
 import "./App.css";
 
 function ButtonNum(props) {
@@ -90,12 +91,11 @@ class Calculator extends Component {
   }
 }
 
-function App() {
+export default function App() {
   return (
     <div className="App">
+      <Toggle></Toggle>
       <Calculator></Calculator>
     </div>
   );
 }
-
-export default App;
