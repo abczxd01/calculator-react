@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Toggle from "./Toggle/Toggle";
 import "./App.css";
+import calculate from "./calculate";
 
 function ButtonNum(props) {
   return (
@@ -28,10 +29,12 @@ function InputField(props) {
       type="text"
       className="input-field"
       placeholder="0"
+      // readOnly
       value={props.value}
       onChange={props.handleChange}
       onKeyPress={(event) => {
-        if (event.key === "Enter") props.calculate();
+        if (event.key === "Enter")
+          console.log(calculate(event.currentTarget.value));
       }}
     />
   );
@@ -43,18 +46,20 @@ class Calculator extends Component {
     this.numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "."];
     this.operations = ["+", "±", "−", "×", "÷", "%", "C", "="];
     this.state = {
+      history: [
+        {
+          mathExpression: "",
+          mathExpressionResult: "",
+        },
+      ],
       mathExpression: "",
     };
   }
-  calculate = () => {
-    this.setState((state) => ({
-      mathExpression: `${eval(state.mathExpression)}`,
-    }));
-  };
   handleChange = (e) => {
     this.setState({ mathExpression: e.currentTarget.value });
   };
   handleClick(value) {
+    const history = this.state.history.slice();
     switch (value) {
       case "C":
         let mathExpression = this.state.mathExpression.split("");
@@ -65,20 +70,38 @@ class Calculator extends Component {
         });
         break;
       case "=":
-        this.calculate();
+        const result = calculate(this.state.mathExpression);
+        this.setState((state) => ({
+          history: [
+            ...history,
+            {
+              mathExpression: state.mathExpression,
+              result,
+            },
+          ],
+          mathExpression: `${result}`,
+        }));
+        break;
+      case "±":
+        break;
+      case "%":
+        break;
+      case ".":
         break;
       default:
-        this.setState((state, props) => ({
+        this.setState((state) => ({
           mathExpression: `${state.mathExpression}${value}`,
         }));
         break;
     }
   }
   render() {
+    const lastMathExpression =
+      this.state.history[this.state.history.length - 1].mathExpression;
     return (
       <div className="calculator">
+        <p className="calculator__previous-result">{lastMathExpression}</p>
         <InputField
-          calculate={this.calculate}
           handleChange={this.handleChange}
           value={this.state.mathExpression}
         ></InputField>
