@@ -1,7 +1,7 @@
 # calculator-react
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
-> The calculator on the react. With theme change, rewind calculation history
+> The calculator on the react. Theme switching , rewind calculation history
 
 ### ✨ [Demo](https://abczxd01.github.io/calculator-react/)
 
