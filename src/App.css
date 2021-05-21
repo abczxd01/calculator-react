@@ -31,10 +31,19 @@ button {
   align-items: center;
   flex-direction: column;
 }
-
+.buttons-arrow{
+  position: absolute;
+  top: -43px;
+}
+.button-arrow{
+  background-color: transparent;
+  height: auto;
+  width: auto;
+}
 .calculator {
   padding-top: 95px;
   width: 263px;
+  position: relative;
   background-color: var(--main-calculator-bg-color);
   border-radius: 10px;
   box-shadow: #00000060 0px 1px 12px 0px;
@@ -49,13 +58,34 @@ button {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
 }
-.calculator__previous-result{
- color: var(--equals-button-bg-color);
- margin-right: 33px;
- font-size: 18px;
- text-align: right;
- margin-bottom: 5px;
- height: 21px;
+.calculator__previous-result {
+  color: var(--equals-button-bg-color);
+  margin-right: 33px;
+  font-size: 18px;
+  text-align: right;
+  margin-bottom: 5px;
+  height: 21px;
+}
+.error-expression {
+  color: rgba(255, 0, 0, 0.644);
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  top: 70px;
+  animation: show-error-expression 0.5s forwards;
+}
+@keyframes show-error-expression {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 .input-field {
   padding: 0;
