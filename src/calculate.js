@@ -1,48 +1,96 @@
 export default function calculate(str) {
   const reg = {
-    numbers: /\d+/i,
-    numOperation: /\D\d+/i,
+    operators: /[+/:÷*×−-]/i,
   };
-
-  const splitStr = str.split("");
-  let result = null;
-
-  function calculateExpression(expression) {
-    let num1 = expression.match(reg.numbers)[0];
-    let operation = expression.match(reg.numOperation)[0][0];
-    let num2 = expression.match(reg.numOperation)[0].match(reg.numbers)[0];
-    switch (operation) {
-      case "+":
-        return `${+num1 + +num2}`.split("");
-      case "−":
-      case "-":
-        return `${+num1 - +num2}`.split("");
-      case "×":
-      case "*":
-        return `${+num1 * +num2}`.split("");
-      case "÷":
-      case "/":
-      case ":":
-        return `${+num1 / +num2}`.split("");
-      default:
-        break;
+  function createStack(string) {
+    const conversionOperator = (operator) => {
+      switch (operator) {
+        case "÷":
+        case ":":
+          return "/";
+        case "×":
+          return "*";
+        case ",":
+          return ".";
+        case "−":
+          return "-";
+        default:
+          return operator;
+      }
+    };
+    const splitString = string.split("");
+    const stack = [];
+    let currentNum = "";
+    splitString.forEach((symbol) => {
+      if (!isNaN(symbol) || symbol === "." || symbol === ",") {
+        currentNum += conversionOperator(symbol);
+      }
+      if (symbol.match(reg.operators)) {
+        stack.push(+currentNum);
+        currentNum = "";
+        stack.push(conversionOperator(symbol));
+      }
+    });
+    stack.push(+currentNum);
+    return stack;
+  }
+  function calculateStack(stack) {
+    const _stack = [...stack];
+    const calculateExpression = (x, y, operation) => {
+      switch (operation) {
+        case "+":
+          return x + y;
+        case "-":
+          return x - y;
+        case "*":
+          return x * y;
+        case "/":
+          return x / y;
+        default:
+          break;
+      }
+    };
+    const searchIndexOperator = (arr) => {
+      if (arr.includes("*") && arr.includes("/")) {
+        const indexOperator1 = arr.indexOf("*", 1);
+        const indexOperator2 = arr.indexOf("/", 1);
+        if (indexOperator1 < indexOperator2) {
+          return indexOperator1;
+        } else if (indexOperator2 < indexOperator1) {
+          return indexOperator2;
+        }
+      } else if (arr.includes("*")) {
+        return arr.indexOf("*",1);
+      } else if (arr.includes("/")) {
+        return arr.indexOf("/",1);
+      }
+      return -1;
+    };
+    while (_stack.length > 2) {
+      const indexOperator = searchIndexOperator(_stack);
+      if (indexOperator !== -1) {
+        let res = calculateExpression(
+          _stack[indexOperator - 1],
+          _stack[indexOperator + 1],
+          _stack[indexOperator]
+        );
+        _stack.splice(indexOperator - 1, 3, res);
+      } else {
+        let res = calculateExpression(_stack[0], _stack[2], _stack[1]);
+        _stack.shift();
+        _stack.shift();
+        _stack.shift();
+        _stack.unshift(res);
+      }
     }
+    return _stack[0];
   }
-
-  function clearCalculated() {
-    let indexDeleted =
-      splitStr.join("").match(reg.numOperation).index +
-      splitStr.join("").match(reg.numOperation)[0].length -
-      1;
-    for (let index = 0; index <= indexDeleted; index++) {
-      splitStr.shift();
-    }
+  try {
+    const stack = createStack(str);
+    const result = calculateStack(stack);
+    return result;
+  } catch (error) {
+    console.log(error);
+    return error;
   }
-
-  while (splitStr.join("").match(reg.numOperation)) {
-    result = calculateExpression(splitStr.join(""));
-    clearCalculated();
-    splitStr.unshift(...result);
-  }
-  return result.join("");
 }
