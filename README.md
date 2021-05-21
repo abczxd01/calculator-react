@@ -3,8 +3,6 @@
 
 > The calculator on the react. With theme change, rewind calculation history
 
-### 🏠 [Homepage](https://github.com/abczxd01/calculator-react)
-
 ### ✨ [Demo](https://abczxd01.github.io/calculator-react/)
 
 ## Install
