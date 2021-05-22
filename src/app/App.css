@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
-  --maing-bg-color: #2bb5a9;
   --main-calculator-bg-color: #ffffff;
   --main-button-bg-color: #ececec;
   --extra-button-bg-color: #bfece8;
@@ -9,7 +8,7 @@ body {
   --equals-button-font-color: #ffffff;
   --buttons-border-color: #29afa441;
   --main-font-color: #000;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 button {
@@ -31,11 +30,11 @@ button {
   align-items: center;
   flex-direction: column;
 }
-.buttons-arrow{
+.buttons-arrow {
   position: absolute;
   top: -43px;
 }
-.button-arrow{
+.button-arrow {
   background-color: transparent;
   height: auto;
   width: auto;
@@ -72,10 +71,10 @@ button {
   font-weight: 700;
   text-align: center;
   position: absolute;
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   top: 70px;
   animation: show-error-expression 0.5s forwards;
 }
